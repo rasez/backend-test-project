@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
-    return redirect(route('dashboard'));
+    return redirect(route('upload-csv'));
 });
 
 Route::namespace('Auth')->group(function () {
@@ -32,12 +32,10 @@ Route::namespace('Auth')->group(function () {
 });
 
 Route::middleware(['web', 'auth'])->group(function () {
-    Route::resource('wallets', 'WalletController');
-    Route::middleware(['wallet'])->group(function () {
-        Route::get('dashboard', 'WalletController@dashboard')->name('dashboard', 'store');
-        Route::resource('wallets.transactions', 'TransactionController')->only([
-            'index', 'create', 'store'
-        ]);
+    Route::middleware(['admin'])->group(function () {
+        Route::post('/store-csv', 'CsvController@storeCsv')->name('store-csv');
+        Route::get('/upload-csv', 'CsvController@upload')->name('upload-csv');
     });
 });
+
 
