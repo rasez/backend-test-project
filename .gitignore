@@ -10,7 +10,5 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/docker
-docker-compose.yml
 /vol-share
-
+/docker/mysql/data
